@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color" content="#13051f">
+<meta
+  name="description"
+  content="SLOT STARは、ゲーム内コインで目標額を目指す無料のブラウザスロットゲームです。購入・換金機能はありません。"
+>
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="SLOT STAR">
+<meta
+  property="og:description"
+  content="ゲーム内コインで目標額を目指す無料ブラウザスロットゲーム。購入・換金機能なし。"
+>
+<meta property="og:site_name" content="SLOT STAR">
+<meta property="og:locale" content="ja_JP">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SLOT STAR">
+<meta
+  name="twitter:description"
+  content="ゲーム内コインで目標額を目指す無料ブラウザスロットゲーム。"
+>
+
+<title>SLOT STAR</title>
+
+<link
+  id="favicon"
+  rel="icon"
+  href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23b70f26'/%3E%3Ctext x='50' y='67' font-size='60' text-anchor='middle'%3E%F0%9F%8E%B0%3C/text%3E%3C/svg%3E"
+>
+
+<style>
+*{box-sizing:border-box}
+html{background:#030207}
+body{margin:0;min-height:100vh;font-family:"Arial Rounded MT Bold","Yu Gothic",sans-serif;color:white;overflow-x:hidden;background:radial-gradient(circle at 20% 10%,#44206d 0,transparent 30%),radial-gradient(circle at 80% 20%,#152d80 0,transparent 32%),radial-gradient(circle at 50% 80%,#63174c 0,transparent 35%),linear-gradient(#0b0617,#030207);padding:env(safe-area-inset-top) 12px calc(40px + env(safe-area-inset-bottom))}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(circle,#fff 0 1px,transparent 1.5px),radial-gradient(circle,#ffe86b 0 1px,transparent 1.5px),radial-gradient(circle,#8be7ff 0 1px,transparent 1.5px);background-size:55px 55px,80px 80px,105px 105px;opacity:.25;animation:starsMove 10s linear infinite}
+@keyframes starsMove{to{transform:translateY(55px)}}
+button{font:inherit;-webkit-tap-highlight-color:transparent;cursor:pointer}
+button:focus-visible{outline:3px solid #82ddff;outline-offset:3px}
+.hidden{display:none!important}
+.app{position:relative;z-index:1;width:min(560px,100%);margin:0 auto;padding-top:14px}
+.logo{text-align:center;font-size:clamp(34px,10vw,56px);font-weight:1000;color:#fff69a;text-shadow:0 0 8px #fff,0 0 18px #ffc400,0 4px #6d3000;margin:10px 0 5px;animation:titleGlow 1s infinite alternate}
+@keyframes titleGlow{to{filter:brightness(1.3);transform:scale(1.02)}}
+.subtitle{text-align:center;color:#cfc7dc;margin:0 0 18px;line-height:1.6;font-size:14px}
+.panel{background:linear-gradient(145deg,#1e1930,#0d0b16);border:2px solid #5c566e;border-radius:20px;padding:16px;box-shadow:0 10px 30px #0008}
+.home-buttons{display:grid;gap:11px}
+.main-btn,.sub-btn,.danger-btn{width:100%;border-radius:16px;padding:15px 12px;font-weight:1000;border:3px solid}
+.main-btn{font-size:22px;color:#351d00;border-color:#7f4900;background:linear-gradient(#fffbbb,#ffe64e,#ffae00);box-shadow:0 0 15px #ffcc00aa}
+.sub-btn{font-size:16px;color:white;border-color:#736a8d;background:linear-gradient(#33294d,#201935)}
+.danger-btn{font-size:18px;color:white;border-color:white;background:linear-gradient(#ff6670,#d21224,#71000b);box-shadow:0 0 16px #ff314755}
+.small-note{font-size:12px;color:#aaa;line-height:1.6;text-align:center;margin-top:14px}
+.version{text-align:center;color:#6f6a7e;font-size:11px;margin-top:18px}
+.section-title{margin:0 0 12px;color:#ffe66d;font-size:22px;text-align:center}
+.back-row{display:flex;justify-content:flex-start;margin-bottom:12px}
+.back-btn{border:2px solid #77708c;background:#211b31;color:white;border-radius:12px;padding:9px 13px;font-weight:900}
+.info-card{background:#15121f;border:1px solid #454056;border-radius:14px;padding:12px;margin:10px 0;line-height:1.7;color:#d7d1de;font-size:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.stat{background:#171421;border:1px solid #4a445c;border-radius:14px;padding:12px;text-align:center}
+.stat-label{font-size:11px;color:#aaa}
+.stat-value{font-size:22px;font-weight:1000;color:#fff16c;margin-top:4px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:9px}
+.icon-btn{border:2px solid #5f5872;background:#211a32;color:white;border-radius:12px;padding:9px 11px;font-weight:900;min-width:48px}
+.stage-box{text-align:center;background:linear-gradient(135deg,#672895,#291354,#2750a1);border:2px solid #e19bff;border-radius:16px;padding:10px;margin-bottom:10px;box-shadow:0 0 10px #d469ff,inset 0 0 12px #ffffff20}
+.stage{font-size:22px;font-weight:1000}
+.status-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.status-card{min-width:0;text-align:center;background:linear-gradient(160deg,#303040,#101018);border:2px solid #747482;border-radius:14px;padding:9px 4px}
+.status-label{color:#bbb;font-size:11px}
+.status-value{margin-top:3px;font-size:17px;font-weight:1000}
+.money-value{color:#fff36e;text-shadow:0 0 8px #ffcf00}
+.goal-value{color:#7feaff;text-shadow:0 0 8px #22c9ff}
+.turn-value{color:#ff9898;text-shadow:0 0 8px #ff4949}
+.progress-area{margin:11px 2px 14px}
+.progress-text{display:flex;justify-content:space-between;font-size:12px;color:#ccc;margin-bottom:5px}
+.progress-outer{height:16px;overflow:hidden;background:#17171e;border:2px solid #6e6d77;border-radius:999px}
+.progress-inner{width:0;height:100%;background:linear-gradient(90deg,#29bfff,#57ffac,#fff55c,#ffac42);transition:.4s}
+.machine{position:relative;padding:14px;border-radius:32px 32px 24px 24px;background:linear-gradient(110deg,#500610,#f34a55 12%,#850914 36%,#d92136 55%,#ff5963 78%,#51050d);border:6px solid #280106;box-shadow:0 9px 0 #130104,inset 0 0 0 3px #ff9097,inset 0 0 20px #ffffff30,0 0 14px #ff304b,0 0 32px #ff304b55}
+.machine.super-flash{animation:machineFlash .2s 9}
+.machine.jackpot{animation:jackpotGlow .38s infinite alternate}
+@keyframes machineFlash{50%{filter:brightness(2)}}
+@keyframes jackpotGlow{from{box-shadow:0 9px 0 #130104,0 0 18px #ffcb00}to{box-shadow:0 9px 0 #130104,0 0 30px #fff,0 0 60px #ffd900,0 0 80px #ff6600}}
+.marquee{background:linear-gradient(#fffad0,#ffe75d 35%,#ffad14 70%,#d87300);color:#511e00;border:5px solid #552800;border-radius:20px;padding:12px 5px;text-align:center;font-size:23px;font-weight:1000;letter-spacing:2px;box-shadow:inset 0 0 12px #fff,0 0 13px #ffd428}
+.lights{display:flex;justify-content:center;gap:9px;margin:11px 0}
+.light{width:15px;height:15px;background:#3d1015;border:1px solid #76363d;border-radius:50%}
+.light.on{background:#fff66f;box-shadow:0 0 5px #fff,0 0 10px #fff363,0 0 19px #ffa800}
+.screen{position:relative;overflow:hidden;background:radial-gradient(circle at center,#181818,#030303);border:5px solid #edbf3d;border-radius:17px;padding:12px;box-shadow:inset 0 0 25px #000,0 0 9px #ffcf35}
+.message{min-height:31px;color:#ffec6b;font-size:15px;font-weight:1000;text-align:center;margin-bottom:10px;text-shadow:0 0 9px #ff8b00}
+.reels{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding:9px;background:linear-gradient(#272727,#111);border:2px solid #666;border-radius:14px}
+.reel{aspect-ratio:1;display:flex;justify-content:center;align-items:center;overflow:hidden;color:#111;font-size:clamp(40px,14vw,67px);background:linear-gradient(#ccc,#fff 16%,#fffbea 48%,#fff 78%,#d3d3d3);border:3px solid #111;border-radius:11px}
+.reel.spinning{filter:blur(2px)}
+.reel.hit{animation:reelHit .24s 5}
+@keyframes reelHit{50%{transform:scale(1.08);background:#fff49b;box-shadow:0 0 12px #fff,0 0 24px #ffd600}}
+.seven{display:inline-block;font-family:Impact,"Arial Black",sans-serif;font-style:italic;font-weight:1000;font-size:1.05em;line-height:1;color:#df001b;-webkit-text-stroke:2px #520007;text-shadow:3px 3px 0 #ffd733,5px 5px 0 #490005,0 0 8px #fff;transform:skewX(-8deg)}
+.result{min-height:58px;margin-top:9px;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:1000;line-height:1.45}
+.result.big{color:#fff572;font-size:20px;text-shadow:0 0 7px #fff,0 0 15px #ff9700}
+.controls{display:grid;grid-template-columns:72px 1fr;align-items:center;gap:12px;padding-top:15px}
+.lever{width:66px;height:66px;border-radius:50%;border:5px solid #532b00;color:#5b2700;font-size:15px;font-weight:1000;background:radial-gradient(circle at 35% 25%,#fff,#fff5ae 15%,#ffd137 40%,#e89800 70%,#8d4900)}
+.spin{min-height:65px;border-radius:17px;font-size:24px;font-weight:1000;color:#361900;background:linear-gradient(#ffffba,#ffe451 35%,#ffb817 70%,#df7c00);border:4px solid #753c00}
+.spin:disabled,.lever:disabled{opacity:.5}
+.coin{position:absolute;top:45%;left:50%;z-index:30;width:27px;height:27px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#8a4d00;font-size:13px;font-weight:1000;background:radial-gradient(circle at 35% 28%,#fff 0 5%,#fff29c 10%,#ffd428 38%,#e99700 72%,#864600);border:2px solid #fff4a3;box-shadow:0 0 5px #fff,0 0 12px #ffd500;pointer-events:none;animation:coinBlast 1.45s ease-out forwards}
+.coin::after{content:"";position:absolute;inset:4px;border:1px solid #b46a00;border-radius:50%}
+@keyframes coinBlast{0%{transform:translate(-50%,-50%) scale(.3) rotate(0);opacity:0}10%,55%{opacity:1}100%{transform:translate(calc(-50% + var(--x)),calc(-50% + var(--y))) scale(var(--s)) rotate(var(--r));opacity:0}}
+.rules{margin-top:22px;background:linear-gradient(145deg,#1d1a28,#101016);border:2px solid #575466;border-radius:18px;padding:15px}
+.rules h2{margin:0 0 8px;color:#ffe66d;font-size:20px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{color:#ffe668}
+th,td{padding:8px 3px;border-bottom:1px solid #39383e;text-align:center}
+.payout{color:#6dffa2;font-weight:1000}
+.probability-title{margin-top:18px;text-align:center;font-size:18px;font-weight:1000;color:#8fe8ff}
+.probability-list{display:grid;gap:7px;margin-top:10px}
+.prob-row{display:grid;grid-template-columns:70px 1fr 92px;align-items:center;gap:7px;background:#211e2b;border:1px solid #484457;border-radius:10px;padding:8px}
+.prob-symbol{text-align:center;font-size:20px;font-weight:1000}
+.prob-bar{height:13px;overflow:hidden;background:#0e0d13;border-radius:999px}
+.prob-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#46c8ff,#8cff9c,#fff266)}
+.prob-number{text-align:right;font-size:12px;font-weight:1000;color:#8fe8ff}
+.prob-summary{margin-top:12px;background:#111827;border:1px solid #3b82f6;border-radius:12px;padding:10px;text-align:center;line-height:1.7}
+.prob-summary strong{color:#8fe8ff}
+.end-overlay,.modal-overlay{position:fixed;inset:0;z-index:999;display:none;align-items:center;justify-content:center;padding:20px;background:#000000df;backdrop-filter:blur(6px)}
+.end-overlay.show,.modal-overlay.show{display:flex}
+.end-card,.modal-card{width:min(480px,100%);text-align:center;border-radius:28px;padding:26px 18px;background:linear-gradient(145deg,#241b39,#0c0912);border:3px solid #6c6381;box-shadow:0 0 35px #000;animation:endCardIn .35s forwards}
+@keyframes endCardIn{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+.end-card.clear-style{background:radial-gradient(circle at top,#fff6a7,#ffc400 40%,#8f4d00);border:5px solid #fff9bd;box-shadow:0 0 25px #fff,0 0 60px #ffd400,0 0 100px #ff8a00}
+.end-card.over-style{background:radial-gradient(circle at top,#ff8a8a,#a20e1b 43%,#310006);border:5px solid #ffb4b4;box-shadow:0 0 25px #ff9a9a,0 0 60px #ff243a,0 0 100px #6e0010}
+.end-title{font-size:clamp(42px,12vw,70px);line-height:1;font-weight:1000;margin-bottom:15px}
+.end-info{font-size:17px;line-height:1.7;font-weight:900;color:white}
+.end-next,.end-reset{width:100%;margin-top:12px;padding:16px;border-radius:15px;font-size:20px;font-weight:1000}
+.end-next{border:4px solid #704300;color:#3a2100;background:linear-gradient(#fffec8,#ffe842,#ffae00)}
+.end-reset{border:4px solid #fff;color:#fff;background:linear-gradient(#ff5d68,#d41020,#76000b);box-shadow:0 0 10px #fff,0 0 25px #ff3143;animation:resetPulse .8s infinite alternate}
+@keyframes resetPulse{to{transform:scale(1.04)}}
+@media(max-width:360px){.status-value{font-size:14px}.marquee{font-size:18px}.prob-row{grid-template-columns:56px 1fr 82px}}
+@media(orientation:landscape) and (max-height:520px){body{padding-top:4px}.machine{padding:9px}.reel{font-size:42px}.logo{font-size:36px;margin:3px 0}.marquee{padding:7px}.lights{margin:6px 0}.controls{padding-top:9px;grid-template-columns:58px 1fr}.spin{min-height:50px}.lever{width:52px;height:52px}}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<section id="homeScreen">
+  <div class="logo">🎰 SLOT STAR 🎰</div>
+  <p class="subtitle">目標コインを目指してステージを突破しよう！<br>ゲーム内コインのみ・購入や換金はできません。</p>
+
+  <div class="panel home-buttons">
+    <button id="continueBtn" class="main-btn hidden">▶ 続きから</button>
+    <button id="startBtn" class="main-btn">🎰 ゲーム開始</button>
+    <button data-nav="rulesScreen" class="sub-btn">📖 遊び方・配当・確率</button>
+    <button data-nav="statsScreen" class="sub-btn">🏆 記録</button>
+    <button id="homeSoundBtn" class="sub-btn">🔊 効果音 ON</button>
+  </div>
+
+  <p class="small-note">無料ブラウザゲームです。ゲーム内コインに金銭的価値はありません。個人情報の入力もありません。</p>
+  <div class="version">SLOT STAR v1.0.0</div>
+</section>
+
+<section id="rulesScreen" class="hidden">
+  <div class="back-row"><button class="back-btn" data-nav="homeScreen">← ホーム</button></div>
+  <div class="panel">
+    <h1 class="section-title">📖 遊び方・配当・確率</h1>
+    <div class="info-card">残り回数が0になるまでSPINできます。目標を達成した後も残り回数はすべて使えます。クリア時は「目標を超えた分」だけ次のステージへ持ち越します。ステージが1つ上がるごとに回転数が2回増えます。</div>
+    <table>
+      <thead><tr><th>絵柄</th><th>配当</th><th>3つ揃い</th></tr></thead>
+      <tbody id="ruleTableBody"></tbody>
+    </table>
+
+    <div class="probability-title">🎰 1リールの出現率</div>
+    <div id="probabilityList" class="probability-list"></div>
+    <div id="probabilitySummary" class="prob-summary"></div>
+
+    <div class="info-card">確率はコード内の設定から自動計算して表示しています。そのため、ゲーム内の実際の抽選設定と表示がずれないようになっています。</div>
+  </div>
+</section>
+
+<section id="statsScreen" class="hidden">
+  <div class="back-row"><button class="back-btn" data-nav="homeScreen">← ホーム</button></div>
+  <div class="panel">
+    <h1 class="section-title">🏆 記録</h1>
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-label">最高到達STAGE</div><div id="statStage" class="stat-value">1</div></div>
+      <div class="stat"><div class="stat-label">最高所持コイン</div><div id="statMoney" class="stat-value">0</div></div>
+      <div class="stat"><div class="stat-label">総SPIN数</div><div id="statSpins" class="stat-value">0</div></div>
+      <div class="stat"><div class="stat-label">777回数</div><div id="stat777" class="stat-value">0</div></div>
+      <div class="stat"><div class="stat-label">総当たり回数</div><div id="statWins" class="stat-value">0</div></div>
+      <div class="stat"><div class="stat-label">プレイ開始回数</div><div id="statPlays" class="stat-value">0</div></div>
+    </div>
+    <button id="clearRecordsBtn" class="danger-btn" style="margin-top:14px">🗑 記録をリセット</button>
+  </div>
+</section>
+
+<section id="gameScreen" class="hidden">
+  <div class="topbar">
+    <button id="gameHomeBtn" class="icon-btn">🏠</button>
+    <button id="soundBtn" class="icon-btn">🔊</button>
+  </div>
+
+  <div class="stage-box"><div class="stage" id="stageText">STAGE 1</div></div>
+
+  <div class="status-grid">
+    <div class="status-card"><div class="status-label">💰 所持コイン</div><div class="status-value money-value" id="money">2,000</div></div>
+    <div class="status-card"><div class="status-label">🎯 目標</div><div class="status-value goal-value" id="goal">6,000</div></div>
+    <div class="status-card"><div class="status-label">🎰 残り</div><div class="status-value turn-value" id="turns">15回</div></div>
+  </div>
+
+  <div class="progress-area">
+    <div class="progress-text"><span>目標達成率</span><span id="progressText">2,000 / 6,000</span></div>
+    <div class="progress-outer"><div class="progress-inner" id="progressBar"></div></div>
+  </div>
+
+  <div class="machine" id="machine">
+    <div class="marquee">✨ SUPER SLOT ✨</div>
+
+    <div class="lights">
+      <div class="light"></div><div class="light"></div><div class="light"></div>
+      <div class="light"></div><div class="light"></div><div class="light"></div>
+      <div class="light"></div><div class="light"></div><div class="light"></div>
+    </div>
+
+    <div class="screen" id="screen">
+      <div class="message" id="message">✨ レバーON！ ✨</div>
+      <div class="reels">
+        <div class="reel" id="reel1">🍒</div>
+        <div class="reel" id="reel2">🍋</div>
+        <div class="reel" id="reel3">💎</div>
+      </div>
+      <div class="result" id="result">SPINして目標を目指せ！</div>
+    </div>
+
+    <div class="controls">
+      <button class="lever" id="lever">GO</button>
+      <button class="spin" id="spin">🎰 SPIN</button>
+    </div>
+  </div>
+
+  <div class="rules">
+    <h2>📖 配当</h2>
+    <table>
+      <thead><tr><th>絵柄</th><th>配当</th></tr></thead>
+      <tbody>
+        <tr><td><span class="seven">7</span><span class="seven">7</span><span class="seven">7</span></td><td class="payout">+10,000</td></tr>
+        <tr><td>💎 💎 💎</td><td class="payout">+8,000</td></tr>
+        <tr><td>⭐ ⭐ ⭐</td><td class="payout">+5,000</td></tr>
+        <tr><td>🍒 🍒 🍒</td><td class="payout">+2,500</td></tr>
+        <tr><td>🍋 🍋 🍋</td><td class="payout">+1,800</td></tr>
+        <tr><td>同じ絵柄2つ</td><td class="payout">+500</td></tr>
+        <tr><td>バラバラ</td><td>0</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <button id="resetGameBtn" class="danger-btn" style="margin-top:16px">🔄 最初からやる</button>
+  <div class="version">SLOT STAR v1.0.0</div>
+</section>
+
+</div>
+
+<div class="end-overlay" id="endOverlay">
+  <div class="end-card" id="endCard">
+    <div class="end-title" id="endTitle"></div>
+    <div class="end-info" id="endInfo"></div>
+    <button class="end-next" id="nextStage">次のステージへ →</button>
+    <button class="end-reset" id="overlayReset">🔄 最初からやる</button>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirmOverlay">
+  <div class="modal-card">
+    <h2 id="confirmTitle">確認</h2>
+    <p id="confirmText" style="line-height:1.7;color:#d8d1df;"></p>
+    <button id="confirmYes" class="danger-btn">はい</button>
+    <button id="confirmNo" class="sub-btn" style="margin-top:10px">キャンセル</button>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+const VERSION="1.0.0";
+const SAVE_KEY="slotStarSaveV1";
+const STATS_KEY="slotStarStatsV1";
+const SOUND_KEY="slotStarSoundV1";
+
+const symbols=["🍋","🍒","⭐","💎","7"];
+const weights=[38,30,17,9,6];
+const payouts={"7":10000,"💎":8000,"⭐":5000,"🍒":2500,"🍋":1800};
+
+let stage=1;
+let money=2000;
+let goal=6000;
+let turns=15;
+let spinning=false;
+let stageCleared=false;
+let winStreak=0;
+let soundEnabled=localStorage.getItem(SOUND_KEY)!=="off";
+let pendingConfirm=null;
+let audioContext=null;
+
+const $=id=>document.getElementById(id);
+const screens=["homeScreen","rulesScreen","statsScreen","gameScreen"];
+
+const moneyElement=$("money");
+const goalElement=$("goal");
+const turnsElement=$("turns");
+const stageText=$("stageText");
+const progressBar=$("progressBar");
+const progressText=$("progressText");
+const message=$("message");
+const result=$("result");
+const machine=$("machine");
+const screen=$("screen");
+const spinButton=$("spin");
+const lever=$("lever");
+const endOverlay=$("endOverlay");
+const endCard=$("endCard");
+const endTitle=$("endTitle");
+const endInfo=$("endInfo");
+const nextStageButton=$("nextStage");
+const reels=[$("reel1"),$("reel2"),$("reel3")];
+const lights=[...document.querySelectorAll(".light")];
+
+function showScreen(id){
+  screens.forEach(name=>$(name).classList.toggle("hidden",name!==id));
+  if(id==="homeScreen") refreshContinueButton();
+  if(id==="statsScreen") renderStats();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+document.querySelectorAll("[data-nav]").forEach(button=>{
+  button.addEventListener("click",()=>showScreen(button.dataset.nav));
+});
+
+function formatNumber(number){
+  return Math.floor(number).toLocaleString("ja-JP");
+}
+
+function sevenHTML(){
+  return '<span class="seven">7</span>';
+}
+
+function symbolHTML(symbol){
+  return symbol==="7"?sevenHTML():symbol;
+}
+
+function showSymbol(element,symbol){
+  if(symbol==="7") element.innerHTML=sevenHTML();
+  else element.textContent=symbol;
+}
+
+function getStats(){
+  const base={maxStage:1,maxMoney:0,totalSpins:0,jackpots:0,totalWins:0,plays:0};
+  try{
+    return {...base,...JSON.parse(localStorage.getItem(STATS_KEY)||"{}")};
+  }catch{
+    return base;
+  }
+}
+
+function saveStats(stats){
+  localStorage.setItem(STATS_KEY,JSON.stringify(stats));
+}
+
+function updateStats(fields={}){
+  const stats=getStats();
+  if(fields.addSpins) stats.totalSpins+=fields.addSpins;
+  if(fields.addJackpots) stats.jackpots+=fields.addJackpots;
+  if(fields.addWins) stats.totalWins+=fields.addWins;
+  if(fields.addPlays) stats.plays+=fields.addPlays;
+  stats.maxStage=Math.max(stats.maxStage,stage);
+  stats.maxMoney=Math.max(stats.maxMoney,money);
+  saveStats(stats);
+}
+
+function renderStats(){
+  const stats=getStats();
+  $("statStage").textContent=stats.maxStage;
+  $("statMoney").textContent=formatNumber(stats.maxMoney);
+  $("statSpins").textContent=formatNumber(stats.totalSpins);
+  $("stat777").textContent=formatNumber(stats.jackpots);
+  $("statWins").textContent=formatNumber(stats.totalWins);
+  $("statPlays").textContent=formatNumber(stats.plays);
+}
+
+function saveGame(){
+  if(turns<=0) return;
+  const data={stage,money,goal,turns,stageCleared,winStreak,version:VERSION};
+  localStorage.setItem(SAVE_KEY,JSON.stringify(data));
+  refreshContinueButton();
+}
+
+function loadGame(){
+  try{
+    const data=JSON.parse(localStorage.getItem(SAVE_KEY));
+    if(!data) return false;
+    stage=Number(data.stage)||1;
+    money=Number(data.money)||0;
+    goal=Number(data.goal)||goalForStage(stage);
+    turns=Number(data.turns);
+    if(!Number.isFinite(turns)) turns=turnsForStage(stage);
+    stageCleared=Boolean(data.stageCleared);
+    winStreak=Number(data.winStreak)||0;
+    spinning=false;
+    resetEffects();
+    showSymbol(reels[0],"🍒");
+    showSymbol(reels[1],"🍋");
+    showSymbol(reels[2],"💎");
+    result.textContent="続きから再開！";
+    message.textContent="✨ レバーON！ ✨";
+    spinButton.disabled=false;
+    lever.disabled=false;
+    updateDisplay();
+    return true;
+  }catch{
+    return false;
+  }
+}
+
+function clearSave(){
+  localStorage.removeItem(SAVE_KEY);
+  refreshContinueButton();
+}
+
+function refreshContinueButton(){
+  $("continueBtn").classList.toggle("hidden",!localStorage.getItem(SAVE_KEY));
+}
+
+function goalForStage(stageNumber){
+  return 6000+((stageNumber-1)*2000)+(Math.floor(((stageNumber-1)*stageNumber)/2)*500);
+}
+
+function turnsForStage(stageNumber){
+  return 15+((stageNumber-1)*2);
+}
+
+function updateDisplay(){
+  moneyElement.textContent=formatNumber(money);
+  goalElement.textContent=formatNumber(goal);
+  turnsElement.textContent=turns+"回";
+  stageText.textContent="STAGE "+stage;
+  progressText.textContent=formatNumber(money)+" / "+formatNumber(goal);
+  progressBar.style.width=Math.min(100,(money/goal)*100)+"%";
+  updateStats();
+}
+
+function getSymbol(){
+  let value=Math.random()*100;
+  for(let i=0;i<symbols.length;i++){
+    value-=weights[i];
+    if(value<0) return symbols[i];
+  }
+  return symbols[0];
+}
+
+function resetEffects(){
+  machine.classList.remove("super-flash","jackpot");
+  reels.forEach(reel=>reel.classList.remove("hit","spinning"));
+  lights.forEach(light=>light.classList.remove("on"));
+}
+
+function lightEffect(){
+  lights.forEach((light,index)=>{
+    setTimeout(()=>light.classList.add("on"),index*45);
+  });
+}
+
+function getAudioContext(){
+  if(!soundEnabled) return null;
+  if(!audioContext){
+    const AudioCtx=window.AudioContext||window.webkitAudioContext;
+    if(!AudioCtx) return null;
+    audioContext=new AudioCtx();
+  }
+  if(audioContext.state==="suspended") audioContext.resume();
+  return audioContext;
+}
+
+function tone(frequency,duration=.08,type="square",volume=.035,delay=0){
+  const context=getAudioContext();
+  if(!context) return;
+  const oscillator=context.createOscillator();
+  const gain=context.createGain();
+  const start=context.currentTime+delay;
+  oscillator.type=type;
+  oscillator.frequency.setValueAtTime(frequency,start);
+  gain.gain.setValueAtTime(volume,start);
+  gain.gain.exponentialRampToValueAtTime(.0001,start+duration);
+  oscillator.connect(gain);
+  gain.connect(context.destination);
+  oscillator.start(start);
+  oscillator.stop(start+duration);
+}
+
+function playSpinSound(){
+  [220,270,320,370].forEach((frequency,index)=>tone(frequency,.05,"square",.018,index*.055));
+}
+
+function playWinSound(level){
+  const notes=level>=4?[523,659,784,1047,1319]:level>=2?[440,554,659,880]:[440,660];
+  notes.forEach((frequency,index)=>tone(frequency,.12,"triangle",.045,index*.08));
+}
+
+function playCoinSound(amount){
+  const count=Math.min(22,6+Math.floor(amount/700));
+  for(let i=0;i<count;i++){
+    tone(900+Math.random()*700,.035,"square",.018,i*.035);
+  }
+}
+
+function playLoseSound(){
+  tone(170,.25,"sawtooth",.03,0);
+  tone(120,.35,"sawtooth",.025,.16);
+}
+
+function updateSoundButtons(){
+  $("homeSoundBtn").textContent=soundEnabled?"🔊 効果音 ON":"🔇 効果音 OFF";
+  $("soundBtn").textContent=soundEnabled?"🔊":"🔇";
+}
+
+function toggleSound(){
+  soundEnabled=!soundEnabled;
+  localStorage.setItem(SOUND_KEY,soundEnabled?"on":"off");
+  updateSoundButtons();
+  if(soundEnabled) tone(660,.08,"triangle",.04);
+}
+
+function getCoinCount(amount){
+  if(amount>=10000) return 200;
+  if(amount>=8000) return 165;
+  if(amount>=5000) return 130;
+  if(amount>=2500) return 95;
+  if(amount>=1800) return 75;
+  if(amount>=500) return 48;
+  return 0;
+}
+
+function coinRain(amount){
+  const count=getCoinCount(amount);
+  for(let i=0;i<count;i++){
+    setTimeout(()=>{
+      const coin=document.createElement("div");
+      coin.className="coin";
+      coin.textContent="★";
+      coin.style.setProperty("--x",(Math.floor(Math.random()*430)-215)+"px");
+      coin.style.setProperty("--y",(Math.floor(Math.random()*360)+40)+"px");
+      coin.style.setProperty("--r",(Math.floor(Math.random()*1200)-600)+"deg");
+      coin.style.setProperty("--s",(.65+Math.random()*.75).toFixed(2));
+      screen.appendChild(coin);
+      setTimeout(()=>coin.remove(),1600);
+    },i*6);
+  }
+}
+
+function calculatePayout(array){
+  const counts={};
+  array.forEach(symbol=>{counts[symbol]=(counts[symbol]||0)+1;});
+
+  const triple=array[0]===array[1]&&array[1]===array[2];
+
+  if(triple){
+    winStreak++;
+    const symbol=array[0];
+
+    if(symbol==="7") return {payout:10000,text:"🔥 777 JACKPOT!! 🔥",level:5,jackpot:true};
+    if(symbol==="💎") return {payout:8000,text:"💎 DIAMOND BONUS!!",level:4};
+    if(symbol==="⭐") return {payout:5000,text:"🌟 BIG BONUS!!",level:3};
+    if(symbol==="🍒") return {payout:2500,text:"🍒 大当たり!!",level:2};
+
+    return {payout:1800,text:"🍋 BONUS!!",level:2};
+  }
+
+  const double=Object.values(counts).some(count=>count===2);
+
+  if(double){
+    winStreak++;
+    return {payout:500,text:"✨ 2つ揃い！",level:1};
+  }
+
+  winStreak=0;
+  return {payout:0,text:"ハズレ",level:0};
+}
+
+function winEffect(data){
+  if(data.payout>0){
+    coinRain(data.payout);
+    playWinSound(data.level);
+    playCoinSound(data.payout);
+  }
+
+  if(data.level>=2){
+    machine.classList.add("super-flash");
+    reels.forEach(reel=>reel.classList.add("hit"));
+    lightEffect();
+  }
+
+  if(data.level>=4) machine.classList.add("jackpot");
+}
+
+function checkGoal(){
+  if(money>=goal&&!stageCleared){
+    stageCleared=true;
+    message.textContent="✨ 目標達成！残りも回せる！ ✨";
+    machine.classList.add("super-flash");
+    lightEffect();
+  }
+}
+
+function showGameClear(){
+  clearSave();
+  const carryOver=Math.max(0,money-goal);
+
+  endCard.className="end-card clear-style";
+  endTitle.textContent="GAME CLEAR!";
+  endInfo.innerHTML=
+    "STAGE "+stage+" クリア！<br>"+
+    "最終所持："+formatNumber(money)+" コイン<br>"+
+    "次へ持ち越し：<b>"+formatNumber(carryOver)+" コイン</b>";
+
+  nextStageButton.style.display="block";
+  endOverlay.classList.add("show");
+  machine.classList.add("jackpot");
+  playWinSound(5);
+}
+
+function showGameOver(){
+  clearSave();
+  const missing=Math.max(0,goal-money);
+
+  endCard.className="end-card over-style";
+  endTitle.textContent="GAME OVER";
+  endInfo.innerHTML="目標まで<br><b>"+formatNumber(missing)+" コイン不足</b>";
+  nextStageButton.style.display="none";
+  endOverlay.classList.add("show");
+  playLoseSound();
+}
+
+function finishStage(){
+  spinButton.disabled=true;
+  lever.disabled=true;
+  if(money>=goal) showGameClear();
+  else showGameOver();
+}
+
+function spin(){
+  if(spinning||turns<=0) return;
+
+  spinning=true;
+  spinButton.disabled=true;
+  lever.disabled=true;
+
+  resetEffects();
+  turns--;
+
+  updateStats({addSpins:1});
+  updateDisplay();
+  saveGame();
+  playSpinSound();
+
+  message.textContent="✨ リール回転中… ✨";
+  result.classList.remove("big");
+  result.textContent="SPINNING...";
+
+  reels.forEach(reel=>reel.classList.add("spinning"));
+
+  let tick=0;
+
+  const animation=setInterval(()=>{
+    reels.forEach(reel=>showSymbol(reel,getSymbol()));
+    tick++;
+
+    if(tick>=12){
+      clearInterval(animation);
+
+      const finalSymbols=[getSymbol(),getSymbol(),getSymbol()];
+
+      reels.forEach((reel,index)=>{
+        reel.classList.remove("spinning");
+        showSymbol(reel,finalSymbols[index]);
+      });
+
+      const payoutData=calculatePayout(finalSymbols);
+      money+=payoutData.payout;
+
+      if(payoutData.payout>0){
+        updateStats({
+          addWins:1,
+          addJackpots:payoutData.jackpot?1:0
+        });
+      }
+
+      let chainText="";
+
+      if(winStreak>=2){
+        chainText="<br>⚡ "+winStreak+"連チャン！";
+      }
+
+      if(payoutData.payout>0){
+        result.innerHTML=
+          payoutData.text+
+          "<br>+"+
+          formatNumber(payoutData.payout)+
+          " コイン"+
+          chainText;
+      }else{
+        result.innerHTML="ハズレ<br>0 コイン";
+      }
+
+      if(payoutData.level>=3){
+        result.classList.add("big");
+        message.textContent="✨🔥 激アツ!! 🔥✨";
+      }else if(payoutData.payout>0){
+        message.textContent="💰 コイン獲得!! 💰";
+      }else{
+        message.textContent="ハズレ…";
+      }
+
+      winEffect(payoutData);
+      updateDisplay();
+      checkGoal();
+      saveGame();
+
+      spinning=false;
+
+      if(turns<=0){
+        setTimeout(finishStage,1300);
+      }else{
+        spinButton.disabled=false;
+        lever.disabled=false;
+      }
+    }
+  },70);
+}
+
+function startNewGame(){
+  stage=1;
+  money=2000;
+  goal=6000;
+  turns=15;
+  spinning=false;
+  stageCleared=false;
+  winStreak=0;
+
+  clearSave();
+  resetEffects();
+
+  showSymbol(reels[0],"🍒");
+  showSymbol(reels[1],"🍋");
+  showSymbol(reels[2],"💎");
+
+  result.classList.remove("big");
+  result.textContent="SPINして目標を目指せ！";
+  message.textContent="✨ レバーON！ ✨";
+
+  spinButton.disabled=false;
+  lever.disabled=false;
+
+  updateStats({addPlays:1});
+  updateDisplay();
+  saveGame();
+  showScreen("gameScreen");
+}
+
+function nextStage(){
+  const carryOver=Math.max(0,money-goal);
+
+  stage++;
+  money=carryOver;
+  goal=goalForStage(stage);
+  turns=turnsForStage(stage);
+
+  spinning=false;
+  stageCleared=false;
+  winStreak=0;
+
+  endOverlay.classList.remove("show");
+  resetEffects();
+
+  showSymbol(reels[0],"🍋");
+  showSymbol(reels[1],"🍒");
+  showSymbol(reels[2],"💎");
+
+  message.textContent="✨ STAGE "+stage+" START！ ✨";
+  result.innerHTML=
+    "持ち越し "+
+    formatNumber(carryOver)+
+    " コイン<br>"+
+    "回転数 "+
+    turns+
+    "回！";
+
+  spinButton.disabled=false;
+  lever.disabled=false;
+
+  updateDisplay();
+  saveGame();
+}
+
+function askConfirm(title,text,action){
+  $("confirmTitle").textContent=title;
+  $("confirmText").textContent=text;
+  pendingConfirm=action;
+  $("confirmOverlay").classList.add("show");
+}
+
+function closeConfirm(){
+  $("confirmOverlay").classList.remove("show");
+  pendingConfirm=null;
+}
+
+function buildProbabilityUI(){
+  const totalWeight=weights.reduce((total,value)=>total+value,0);
+  const probabilities=weights.map(weight=>weight/totalWeight);
+  const maxProbability=Math.max(...probabilities);
+
+  $("probabilityList").innerHTML=
+    symbols.map((symbol,index)=>{
+      const percent=probabilities[index]*100;
+      const barPercent=(probabilities[index]/maxProbability)*100;
+
+      return `
+        <div class="prob-row">
+          <div class="prob-symbol">${symbolHTML(symbol)}</div>
+          <div class="prob-bar">
+            <div class="prob-fill" style="width:${barPercent.toFixed(1)}%"></div>
+          </div>
+          <div class="prob-number">${percent.toFixed(1)}%</div>
+        </div>
+      `;
+    }).join("");
+
+  const exactPairProbability=
+    probabilities.reduce((total,p)=>
+      total+(3*p*p*(1-p))
+    ,0);
+
+  const tripleProbability=
+    probabilities.reduce((total,p)=>
+      total+Math.pow(p,3)
+    ,0);
+
+  const anyWinProbability=
+    exactPairProbability+
+    tripleProbability;
+
+  $("probabilitySummary").innerHTML=
+    "1回で<strong>何か当たる確率：約"+
+    (anyWinProbability*100).toFixed(1)+
+    "%</strong><br>"+
+    "約 "+
+    (1/anyWinProbability).toFixed(1)+
+    " 回に1回<br>"+
+    "3つ揃い合計：約"+
+    (tripleProbability*100).toFixed(2)+
+    "%";
+
+  const reversedSymbols=[...symbols].reverse();
+
+  $("ruleTableBody").innerHTML=
+    reversedSymbols.map(symbol=>{
+      const index=symbols.indexOf(symbol);
+      const probability=Math.pow(probabilities[index],3);
+      const oneIn=1/probability;
+      const percentDigits=probability<.001?3:2;
+
+      return `
+        <tr>
+          <td>${symbolHTML(symbol)} ${symbolHTML(symbol)} ${symbolHTML(symbol)}</td>
+          <td class="payout">+${formatNumber(payouts[symbol])}</td>
+          <td>
+            ${(probability*100).toFixed(percentDigits)}%
+            <br>
+            <small>約1/${Math.round(oneIn).toLocaleString("ja-JP")}</small>
+          </td>
+        </tr>
+      `;
+    }).join("")+
+    `
+      <tr>
+        <td>同じ絵柄2つ</td>
+        <td class="payout">+500</td>
+        <td>${(exactPairProbability*100).toFixed(1)}%</td>
+      </tr>
+    `;
+}
+
+spinButton.addEventListener("click",spin);
+lever.addEventListener("click",spin);
+nextStageButton.addEventListener("click",nextStage);
+
+$("startBtn").addEventListener("click",()=>{
+  askConfirm(
+    "新しく開始",
+    "保存中のゲームがある場合は上書きされます。最初から始めますか？",
+    startNewGame
+  );
+});
+
+$("continueBtn").addEventListener("click",()=>{
+  if(loadGame()) showScreen("gameScreen");
+});
+
+$("resetGameBtn").addEventListener("click",()=>{
+  askConfirm(
+    "最初からやる",
+    "現在のステージ進行は消えます。最初からやり直しますか？",
+    startNewGame
+  );
+});
+
+$("overlayReset").addEventListener("click",()=>{
+  endOverlay.classList.remove("show");
+  askConfirm(
+    "最初からやる",
+    "最初からやり直しますか？",
+    startNewGame
+  );
+});
+
+$("gameHomeBtn").addEventListener("click",()=>{
+  if(!spinning){
+    saveGame();
+    showScreen("homeScreen");
+  }
+});
+
+$("homeSoundBtn").addEventListener("click",toggleSound);
+$("soundBtn").addEventListener("click",toggleSound);
+
+$("clearRecordsBtn").addEventListener("click",()=>{
+  askConfirm(
+    "記録をリセット",
+    "最高記録や総SPIN数などをすべて消しますか？",
+    ()=>{
+      localStorage.removeItem(STATS_KEY);
+      renderStats();
+    }
+  );
+});
+
+$("confirmYes").addEventListener("click",()=>{
+  const action=pendingConfirm;
+  closeConfirm();
+  if(action) action();
+});
+
+$("confirmNo").addEventListener("click",closeConfirm);
+
+buildProbabilityUI();
+updateSoundButtons();
+refreshContinueButton();
+renderStats();
+updateDisplay();
+</script>
+
+</body>
+</html>
